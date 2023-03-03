@@ -1,8 +1,8 @@
-import fs from "fs"
-export default async function Home() {
-  const components = fs
-    .readdirSync("./src/components")
-    .filter(dir => !dir.includes("."))
+import { useComponents } from "utils"
+
+export default function Home() {
+  const components = useComponents()
+
   return (
     <main className="w-screen h-screen flex items-center flex-col justify-center">
       <h1>
@@ -13,10 +13,11 @@ export default async function Home() {
       <strong className="font-medium text-lg">All available components:</strong>
       {components.map(component => (
         <a
-          href={`https://github.com/isneru/ui/blob/main/src/components/${component}`}
+          key={component.name}
+          href={component.url}
           rel="noreferrer"
           target="_blank">
-          {component}
+          {component.name}
         </a>
       ))}
     </main>
